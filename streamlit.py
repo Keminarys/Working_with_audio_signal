@@ -32,7 +32,8 @@ if len(textinput) > 0 :
   
   st.write("Is that the video you wanted ?")
   st.video(url_total_vid)
-
+  if st.button("Yes"):
+    
 # gauth = GoogleAuth()
 # drive = GoogleDrive(gauth)
 
