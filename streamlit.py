@@ -39,10 +39,12 @@ if len(textinput) > 0 :
     audio_stream.stream_to_buffer(buffer)
     buffer.seek(0)
     yt.streams.filter(only_audio=True).first().download(filename='test.mp4')
+    st.write(os.getcwd())
     st.write(os.listdir())
-    sound = AudioSegment.from_file("test.mp4",format="mp4")
-    sound.export("/mount/src/test.wav", format="wav")
-    st.write(os.listdir())
-    audio_files = glob('/mount/src/test.wav')
-    y, sr = librosa.load(audio_files[0])
-    st.audio(audio_files)
+
+
+    # sound = AudioSegment.from_file("test.mp4",format="mp4")
+    # sound.export("/mount/src/test.wav", format="wav")
+    # audio_files = glob('/mount/src/test.wav')
+    # y, sr = librosa.load(audio_files[0])
+    # st.audio(audio_files)
