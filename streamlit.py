@@ -15,6 +15,7 @@ import seaborn as sns
 import streamlit as st
 
 from glob import glob
+import os
 
 st.title('Working with audio file using python')
 st.divider()
@@ -31,6 +32,7 @@ if len(textinput) > 0 :
   st.write("Is that the video you wanted ?")
   st.video(url_total_vid)
   if st.button("Yes"):
+    st.write(os.getcwd())
     yt = pytube.YouTube(url_total_vid)
     audio_stream = yt.streams.filter(only_audio=True).first()
     buffer=BytesIO()
