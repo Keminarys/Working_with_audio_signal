@@ -23,6 +23,7 @@ st.divider()
 st.write('This project aims to search a video on youtube, get the audio and perform some analysis')
 st.divider()
 
+textinput = st.text_input("Please enter your keywords to find the desired video here", "")
 
 # gauth = GoogleAuth()
 # drive = GoogleDrive(gauth)
