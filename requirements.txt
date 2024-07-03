@@ -6,7 +6,5 @@ matplotlib
 seaborn
 pytube
 pydub
-io
 librosa
 pydrive
-glob
