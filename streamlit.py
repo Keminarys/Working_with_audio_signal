@@ -24,14 +24,14 @@ st.write('This project aims to search a video on youtube, get the audio and perf
 st.divider()
 
 textinput = st.text_input("Please enter your keywords to find the desired video here", "")
-s = pytube.Search(textinput)
-
-url_fixed = "https://www.youtube.com/watch?v="
-url_moving = str(s.results[0])[-12:]
-url_total_vid = url_fixed+url_moving
-
-st.write("Is that the video you wanted ?")
-st.video(url_total_vid)
+if len(textinput) > 0 :
+  s = pytube.Search(textinput)
+  url_fixed = "https://www.youtube.com/watch?v="
+  url_moving = str(s.results[0])[-12:]
+  url_total_vid = url_fixed+url_moving
+  
+  st.write("Is that the video you wanted ?")
+  st.video(url_total_vid)
 
 # gauth = GoogleAuth()
 # drive = GoogleDrive(gauth)
