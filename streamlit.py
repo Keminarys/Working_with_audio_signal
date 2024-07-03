@@ -39,6 +39,7 @@ if len(textinput) > 0 :
     audio_stream.stream_to_buffer(buffer)
     buffer.seek(0)
     yt.streams.filter(only_audio=True).first().download(filename='test.mp4')
+    st.write(os.listdir())
     sound = AudioSegment.from_file("/mount/src/test.mp4",format="mp4")
     sound.export("/mount/src/test.wav", format="wav")
     audio_files = glob('/mount/src/test.wav')
