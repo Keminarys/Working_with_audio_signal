@@ -20,7 +20,7 @@ from glob import glob
 
 st.title('Working with audio file using python')
 st.divider()
-st.subheader('This project aims to search a video on youtube, get the audio and perform some analysis')
+st.write('This project aims to search a video on youtube, get the audio and perform some analysis')
 st.divider()
 
 
