@@ -13,8 +13,6 @@ import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
-from pydrive.auth import GoogleAuth
-from pydrive.drive import GoogleDrive
 
 from glob import glob
 
@@ -33,18 +31,14 @@ if len(textinput) > 0 :
   st.write("Is that the video you wanted ?")
   st.video(url_total_vid)
   if st.button("Yes"):
-    
-# gauth = GoogleAuth()
-# drive = GoogleDrive(gauth)
-
-# # Télécharger un fichier audio
-# audio_file = drive.CreateFile({'title': 'temp.mp4'})
-# audio_file.SetContentFile('temp.mp4')
-# audio_file.Upload()
-# print('Le fichier audio a été téléchargé avec succès.')
-
-# # Lire le fichier audio
-# file_id = audio_file['id']
-# audio_file = drive.CreateFile({'id': file_id})
-# audio_file.GetContentFile('MonFichierAudio.mp3')
-# print('Le fichier audio a été lu avec succès.')
+    yt = pytube.YouTube(url_total_vid)
+    audio_stream = yt.streams.filter(only_audio=True).first()
+    buffer=BytesIO()
+    audio_stream.stream_to_buffer(buffer)
+    buffer.seek(0)
+    yt.streams.filter(only_audio=True).first().download(path = ,filename='test.mp4')
+    sound = AudioSegment.from_file("/content/test.mp4",format="mp4")
+    sound.export("/content/test.wav", format="wav")
+    audio_files = glob('/content/test.wav')
+    y, sr = librosa.load(audio_files[0])
+    st.audio(audio_files)
