@@ -51,15 +51,7 @@ if len(textinput) > 0 :
     buffer=BytesIO()
     audio_stream.stream_to_buffer(buffer)
     buffer.seek(0)
-    data, samplerate = sf.read(buffer)
-    st.write("sucessfully read")
-    librosa_audio_data = librosa.resample(data.T, samplerate, 22050)
-    st.write("data is in librosa")
-    #filename = yt.streams.filter(only_audio=True).first().download(filename='test.mp4')
-    #st.write(os.listdir())
-    # audio = AudioFileClip(filename)
-    # audio.write_audio("output.wav", codec='pcm_s16le')
-    # st.write(os.listdir())
+
 
     # sound = AudioSegment.from_file("/mount/src/working_with_audio_signal/test.mp4",format="mp4")
     # sound.export("/mount/src/working_with_audio_signal/test.wav", format="wav")
