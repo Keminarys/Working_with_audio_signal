@@ -34,7 +34,7 @@ st.divider()
 ### Function
 
 def download_youtube_video(url):
-    yt = YouTube(url)
+    yt = pytube.YouTube(url)
     stream = yt.streams.first()
     
     # Download the video to a BytesIO object in memory
