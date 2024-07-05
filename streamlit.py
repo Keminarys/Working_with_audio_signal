@@ -53,7 +53,7 @@ if len(textinput) > 0 :
     filename = yt.streams.filter(only_audio=True).first().download(filename='test.mp4')
     st.write(os.listdir())
     audio = AudioFileClip(filename)
-    audio.write_audiofile("output.wav", codec='pcm_s16le')
+    audio.write_audio("output.wav", codec='pcm_s16le')
     st.write(os.listdir())
 
     # sound = AudioSegment.from_file("/mount/src/working_with_audio_signal/test.mp4",format="mp4")
