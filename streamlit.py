@@ -10,6 +10,7 @@ import json
 import pytube
 from pydub import AudioSegment
 from moviepy.editor import AudioFileClip
+import soundfile as sf
 
 import librosa
 import librosa.display
