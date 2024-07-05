@@ -51,6 +51,7 @@ if len(textinput) > 0 :
     buffer=BytesIO()
     audio_stream.stream_to_buffer(buffer)
     buffer.seek(0)
+    st.audio(buffer)
 
 
     # sound = AudioSegment.from_file("/mount/src/working_with_audio_signal/test.mp4",format="mp4")
