@@ -39,7 +39,7 @@ def download_youtube_video(url):
     
     # Download the video to a BytesIO object in memory
     audio_file = BytesIO()
-    audio_file.write(stream.download(output_path=None))
+    audio_file.write(stream.download(path=None))
     audio_file.seek(0)
     
     return audio_file
