@@ -33,13 +33,16 @@ st.divider()
 
 ### Function
 
-def upload_to_drive(file_path):
-    gauth = GoogleAuth(settings_file=st.secrets["client_secrets"])
-    drive = GoogleDrive(gauth)
+def download_youtube_video(url):
+    yt = YouTube(url)
+    stream = yt.streams.first()
     
-    file_drive = drive.CreateFile({'title': file_path})
-    file_drive.SetContentFile(file_path)
-    file_drive.Upload()
+    # Download the video to a BytesIO object in memory
+    audio_file = BytesIO()
+    audio_file.write(stream.download(output_path=None))
+    audio_file.seek(0)
+    
+    return audio_file
 
 ### Main app
 
@@ -53,12 +56,8 @@ if len(textinput) > 0 :
   st.write("Is that the video you wanted ?")
   st.video(url_total_vid)
   if st.button("Yes"):
-    yt = pytube.YouTube(url_total_vid)
-    audio_stream = yt.streams.filter(only_audio=True).first()
-    buffer=BytesIO()
-    audio_stream.stream_to_buffer(buffer)
-    buffer.seek(0)
-    upload_to_drive(yt.streams.filter(only_audio=True).first().download(filename='test.mp4'))
+    audio_file = download_youtube_video(url_total_vid)
+    st.write(type(audio_file))
     # sound = AudioSegment.from_file("/mount/src/working_with_audio_signal/test.mp4",format="mp4")
     # sound.export("/mount/src/working_with_audio_signal/test.wav", format="wav")
     # audio_files = glob('/mount/src/test.wav')
