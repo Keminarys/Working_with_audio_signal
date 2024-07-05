@@ -52,7 +52,7 @@ if len(textinput) > 0 :
     #audio_stream = yt.streams.filter(only_audio=True).first().download(output_path = "/mount/src/working_with_audio_signal/", file_name="temp.mp4")
     st.write(os.getcwd())
     st.write(os.listdir())
-    cwd = pathlib.Path.cwd()
+    cwd = Path.cwd()
     uploaded_files = sorted(cwd.glob("*.mp4"))
     st.write(uploaded_files)
     # buffer=BytesIO()
