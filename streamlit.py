@@ -34,7 +34,7 @@ st.divider()
 ### Function
 
 def upload_to_drive(file_path):
-    gauth = GoogleAuth(settings_file=json.load(StringIO(st.secrets["client_secrets"])))
+    gauth = GoogleAuth(settings_file=st.secrets["client_secrets"])
     drive = GoogleDrive(gauth)
     
     file_drive = drive.CreateFile({'title': file_path})
