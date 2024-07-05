@@ -47,10 +47,11 @@ if len(textinput) > 0 :
   st.video(url_total_vid)
   if st.button("Yes"):
     yt = pytube.YouTube(url_total_vid)
-    audio_stream = yt.streams.filter(only_audio=True).first()
-    buffer=BytesIO()
-    audio_stream.stream_to_buffer(buffer)
-    buffer.seek(0)
-    audio_file = st.audio(buffer)
-    y, sr = librosa.load(audio_files[0])
-    st.write('finally!!!!')
+    audio_stream = yt.streams.filter(only_audio=True).first().download(output_path = "/mount/src/working_with_audio_signal/", file_name="temp.mp4")
+    st.write(os.getcwd())
+    st.write(os.listdir())
+    # buffer=BytesIO()
+    # audio_stream.stream_to_buffer(buffer)
+    # buffer.seek(0)
+    
+    # y, sr = librosa.load(audio_files[0])
