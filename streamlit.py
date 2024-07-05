@@ -55,6 +55,7 @@ if len(textinput) > 0 :
     cwd = Path.cwd()
     uploaded_files = sorted(cwd.glob("*.mp4"))
     st.write(uploaded_files)
+    st.audio("/mount/src/working_with_audio_signal/temp.mp4")
     # buffer=BytesIO()
     # audio_stream.stream_to_buffer(buffer)
     # buffer.seek(0)
