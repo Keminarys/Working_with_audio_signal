@@ -35,14 +35,11 @@ st.divider()
 
 def download_youtube_video(url):
     yt = pytube.YouTube(url)
-    stream = yt.streams.first()
-    
-    # Download the video to a BytesIO object in memory
-    audio_file = BytesIO()
-    audio_file.write(stream.download(path=None))
-    audio_file.seek(0)
-    
-    return audio_file
+    stream = yt.streams.first().filter(only_audio=True).first()
+    audio_stream.stream_to_buffer(buffer)
+    buffer.seek(0)
+    yt.download(filename='test.mp4')
+    return buffer
 
 ### Main app
 
@@ -58,6 +55,7 @@ if len(textinput) > 0 :
   if st.button("Yes"):
     audio_file = download_youtube_video(url_total_vid)
     st.write(type(audio_file))
+
     # sound = AudioSegment.from_file("/mount/src/working_with_audio_signal/test.mp4",format="mp4")
     # sound.export("/mount/src/working_with_audio_signal/test.wav", format="wav")
     # audio_files = glob('/mount/src/test.wav')
