@@ -7,3 +7,5 @@ seaborn
 pytube
 pydub
 librosa
+json
+pydrive
