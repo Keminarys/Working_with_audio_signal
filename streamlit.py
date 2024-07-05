@@ -51,12 +51,6 @@ if len(textinput) > 0 :
     buffer=BytesIO()
     audio_stream.stream_to_buffer(buffer)
     buffer.seek(0)
-    st.audio(buffer)
-
-
-    # sound = AudioSegment.from_file("/mount/src/working_with_audio_signal/test.mp4",format="mp4")
-    # sound.export("/mount/src/working_with_audio_signal/test.wav", format="wav")
-    # audio_files = glob('/mount/src/test.wav')
-    # y, sr = librosa.load(audio_files[0])
-    # st.audio(audio_files)
-
+    audio_file = st.audio(buffer)
+    y, sr = librosa.load(audio_files[0])
+    st.write('finally!!!!')
