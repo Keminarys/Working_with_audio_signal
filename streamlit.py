@@ -2,9 +2,13 @@
 import pandas as pd
 import numpy as np
 
+from io import BytesIO
+from io import StringIO
+import json
+
 import pytube
 from pydub import AudioSegment
-from io import BytesIO
+
 import librosa
 import librosa.display
 
@@ -15,12 +19,24 @@ import seaborn as sns
 import streamlit as st
 
 from glob import glob
-import os
+
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
 
 st.title('Working with audio file using python')
 st.divider()
 st.write('This project aims to search a video on youtube, get the audio and perform some analysis')
 st.divider()
+
+### Function : 
+def upload_to_drive(file_path):
+    gauth = GoogleAuth(settings_file=json.load(StringIO(st.secrets["client_secrets"])))
+    drive = GoogleDrive(gauth)
+    
+    file_drive = drive.CreateFile({'title': file_path})
+    file_drive.SetContentFile(file_path)
+    file_drive.Upload()
+
 
 textinput = st.text_input("Please enter your keywords to find the desired video here", "")
 if len(textinput) > 0 :
@@ -32,7 +48,6 @@ if len(textinput) > 0 :
   st.write("Is that the video you wanted ?")
   st.video(url_total_vid)
   if st.button("Yes"):
-    st.write(os.getcwd())
     yt = pytube.YouTube(url_total_vid)
     audio_stream = yt.streams.filter(only_audio=True).first()
     buffer=BytesIO()
@@ -41,8 +56,6 @@ if len(textinput) > 0 :
     yt.streams.filter(only_audio=True).first().download(filename='test.mp4')
     sound = AudioSegment.from_file("/mount/src/working_with_audio_signal/test.mp4",format="mp4")
     sound.export("/mount/src/working_with_audio_signal/test.wav", format="wav")
-    st.write(os.getcwd())
-    st.write(os.listdir())
     # audio_files = glob('/mount/src/test.wav')
     # y, sr = librosa.load(audio_files[0])
     # st.audio(audio_files)
