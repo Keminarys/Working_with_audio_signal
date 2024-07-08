@@ -30,9 +30,9 @@ st.write('This project aims to search a video on youtube, get the audio and perf
 st.divider()
 
 ### Function
-def convert_mp4_to_wav_ffmpeg_bytes2bytes(input_data: bytes) -> bytes:
+def convert_mp3_to_wav_ffmpeg_bytes2bytes(input_data: bytes) -> bytes:
     args = (ffmpeg
-            .input('pipe:', format='mp4')
+            .input('pipe:', format='mp3')
             .output('pipe:', format='wav')
             .global_args('-loglevel', 'error')
             .get_args()
@@ -55,7 +55,7 @@ if len(textinput) > 0 :
   st.video(url_total_vid)
   if st.button("Yes"):
     yt = pytube.YouTube(url_total_vid)
-    audio_stream = yt.streams.filter(only_audio=True).first()
+    audio_stream = yt.streams.get_audio_only()
     buffer=BytesIO()
     audio_stream.stream_to_buffer(buffer)
     buffer.seek(0)
