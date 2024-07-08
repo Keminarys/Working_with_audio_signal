@@ -10,3 +10,4 @@ librosa
 pydrive
 moviepy
 soundfile
+ffmpeg-python
