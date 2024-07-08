@@ -37,7 +37,7 @@ def convert_mp4_to_wav_ffmpeg_bytes2bytes(input_data: bytes) -> bytes:
             .global_args('-loglevel', 'error')
             .get_args()
             )
-    # print(args)
+    st.write(args)
     proc = subprocess.Popen(
         ['ffmpeg'] + args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     return proc.communicate(input=input_data)[0]
