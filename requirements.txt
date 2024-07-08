@@ -7,3 +7,5 @@ seaborn
 pytube
 librosa
 ffmpeg-python
+miniaudio
+torch
