@@ -67,7 +67,7 @@ if len(textinput) > 0 :
   st.video(url_total_vid)
   if st.button("Yes"):
     yt = pytube.YouTube(url_total_vid)
-    audio_stream = yt.streams.filter(only_audio=True).first().download(filename="temp.mp4")
+    audio_stream = yt.streams.filter(only_audio=True).first()
     buffer=BytesIO()
     audio_stream.stream_to_buffer(buffer)
     buffer.seek(0)
