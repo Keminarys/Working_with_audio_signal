@@ -59,9 +59,10 @@ if len(textinput) > 0 :
     yt = pytube.YouTube(url_total_vid)
     audio_stream = yt.streams.filter(only_audio=True).first()
     buffer=BytesIO()
+    st.write(buffer.getbuffer().nbytes)
     audio_stream.stream_to_buffer(buffer)
     buffer.seek(0)
-    st.write(len(buffer))
+    st.write(buffer.getbuffer().nbytes)
     decoded_audio = decode(buffer, nchannels=1, sample_rate=16000, output_format=SampleFormat.SIGNED32)
 
     # create tensor out of the audio samples
