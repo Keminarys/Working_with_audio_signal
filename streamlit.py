@@ -63,7 +63,7 @@ if len(textinput) > 0 :
     audio_stream.stream_to_buffer(buffer)
     buffer.seek(0)
     st.write(buffer.getbuffer().nbytes)
-    decoded_audio = decode(buffer, nchannels=1, sample_rate=16000, output_format=SampleFormat.SIGNED32)
+    decoded_audio = decode(buffer, output_format=SampleFormat.SIGNED32)
 
     # create tensor out of the audio samples
     decoded_audio = torch.FloatTensor(decoded_audio.samples)
