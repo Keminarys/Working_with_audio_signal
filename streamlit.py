@@ -4,14 +4,9 @@ import pandas as pd
 import numpy as np
 
 from io import BytesIO
-from io import StringIO
-import json
 import subprocess
 
 import pytube
-from pydub import AudioSegment
-from moviepy.editor import AudioFileClip
-import soundfile as sf
 import ffmpeg
 
 import librosa
@@ -27,9 +22,6 @@ from glob import glob
 import os 
 from pathlib import Path
 
-from pydrive.auth import GoogleAuth
-from pydrive.drive import GoogleDrive
-
 ### Setting up the page
 
 st.title('Working with audio file using python')
@@ -39,11 +31,6 @@ st.divider()
 
 ### Function
 def convert_mp4_to_wav_ffmpeg_bytes2bytes(input_data: bytes) -> bytes:
-    """
-    It converts mp3 to wav using ffmpeg
-    :param input_data: bytes object of a mp3 file
-    :return: A bytes object of a wav file.
-    """
     args = (ffmpeg
             .input('pipe:', format='mp4')
             .output('pipe:', format='wav')
