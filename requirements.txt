@@ -5,9 +5,5 @@ plotly
 matplotlib
 seaborn
 pytube
-pydub
 librosa
-pydrive
-moviepy
-soundfile
 ffmpeg-python
