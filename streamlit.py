@@ -59,8 +59,8 @@ if len(textinput) > 0 :
     buffer=BytesIO()
     audio_stream.stream_to_buffer(buffer)
     buffer.seek(0)
-
-    wav_file = convert_mp4_to_wav_ffmpeg_bytes2bytes(buffer)
-    st.write("All good !")
+    st.write(buffer)
+    # wav_file = convert_mp4_to_wav_ffmpeg_bytes2bytes(buffer)
+    # st.write("All good !")
     
     # y, sr = librosa.load(audio_files[0])
