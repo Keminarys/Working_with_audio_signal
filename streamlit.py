@@ -11,6 +11,7 @@ import pytube
 from pydub import AudioSegment
 from moviepy.editor import AudioFileClip
 import soundfile as sf
+import ffmpeg
 
 import librosa
 import librosa.display
@@ -35,6 +36,24 @@ st.divider()
 st.write('This project aims to search a video on youtube, get the audio and perform some analysis')
 st.divider()
 
+### Function
+def convert_mp4_to_wav_ffmpeg_bytes2bytes(input_data: bytes) -> bytes:
+    """
+    It converts mp3 to wav using ffmpeg
+    :param input_data: bytes object of a mp3 file
+    :return: A bytes object of a wav file.
+    """
+    args = (ffmpeg
+            .input('pipe:', format='mp4')
+            .output('pipe:', format='wav')
+            .global_args('-loglevel', 'error')
+            .get_args()
+            )
+    # print(args)
+    proc = subprocess.Popen(
+        ['ffmpeg'] + args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    return proc.communicate(input=input_data)[0]
+
 ### Main app
 
 textinput = st.text_input("Please enter your keywords to find the desired video here", "")
@@ -48,19 +67,12 @@ if len(textinput) > 0 :
   st.video(url_total_vid)
   if st.button("Yes"):
     yt = pytube.YouTube(url_total_vid)
-    yt.streams.filter(only_audio=True).first().download(filename="temp.mp4")
-    #audio_stream = yt.streams.filter(only_audio=True).first().download(output_path = "/mount/src/working_with_audio_signal/", file_name="temp.mp4")
-    st.write(os.getcwd())
-    st.write(os.listdir())
-    cwd = Path.cwd()
-    uploaded_files = sorted(cwd.glob("*.mp4"))
-    st.write(uploaded_files)
-    sound = AudioSegment.from_file("",format="mp4")
-    sound.export("/mount/src/working_with_audio_signal/temp.wav", format="wav") 
-    st.audio("/mount/src/working_with_audio_signal/temp.wav")
-    st.write("FUCK YEAH!")
-    # buffer=BytesIO()
-    # audio_stream.stream_to_buffer(buffer)
-    # buffer.seek(0)
+    audio_stream = yt.streams.filter(only_audio=True).first().download(filename="temp.mp4")
+    buffer=BytesIO()
+    audio_stream.stream_to_buffer(buffer)
+    buffer.seek(0)
+
+    wav_file = convert_mp4_to_wav_ffmpeg_bytes2bytes(buffer)
+    st.write("All good !")
     
     # y, sr = librosa.load(audio_files[0])
