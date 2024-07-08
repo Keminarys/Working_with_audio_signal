@@ -22,6 +22,8 @@ from glob import glob
 import os 
 from pathlib import Path
 
+import torch
+from miniaudio import SampleFormat, decode
 ### Setting up the page
 
 st.title('Working with audio file using python')
@@ -59,7 +61,21 @@ if len(textinput) > 0 :
     buffer=BytesIO()
     audio_stream.stream_to_buffer(buffer)
     buffer.seek(0)
-    st.write(buffer)
+    decoded_audio = decode(buffer, nchannels=1, sample_rate=16000, output_format=SampleFormat.SIGNED32)
+
+    # create tensor out of the audio samples
+    decoded_audio = torch.FloatTensor(decoded_audio.samples)
+    
+    # normalize 32 integer bit audio by dividing by 2147483648 (or short hand 1 << 31)
+    decoded_audio /= (1 << 31)
+    
+    st.write(decoded_audio.max())
+    st.write(decoded_audio.min())
+    st.write(decoded_audio.shape)
+    st.write(decoded_audio.dtype)
+    
+    # plot to visually verify
+    st.pyplot(plt.plot(decoded_audio.numpy(), linewidth=1))
     # wav_file = convert_mp4_to_wav_ffmpeg_bytes2bytes(buffer)
     # st.write("All good !")
     
