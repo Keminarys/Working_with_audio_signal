@@ -46,7 +46,7 @@ def convert_mp3_to_wav_ffmpeg_bytes2bytes(input_data: bytes) -> bytes:
 
 
 def save_audio(url):
-    yt = YouTube(url)
+    yt = pytube.YouTube(url)
     try:
         video = yt.streams.filter(only_audio=True).first()
         out_file = video.download()
