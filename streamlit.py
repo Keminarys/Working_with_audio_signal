@@ -70,7 +70,7 @@ if len(textinput) > 0 :
   st.write("Is that the video you wanted ?")
   st.video(url_total_vid)
   if st.button("Yes"):
-      video_title, save_location, video_thumbnail = save_audio(video_url)
+      video_title, save_location, video_thumbnail = save_audio(url_total_vid)
       st.audio(save_location)
       st.write(video_title)
     # yt = pytube.YouTube(url_total_vid)
