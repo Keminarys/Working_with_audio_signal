@@ -71,7 +71,7 @@ if len(textinput) > 0 :
   st.video(url_total_vid)
   if st.button("Yes"):
       video_title, save_location, video_thumbnail = save_audio(url_total_vid)
-      audio_files = glob('/content/test.wav')
+      audio_files = glob(save_location)
       y, sr = librosa.load(audio_files[0])
       st.write(f'y: {y[:10]}')
       st.write(f'shape y: {y.shape}')
