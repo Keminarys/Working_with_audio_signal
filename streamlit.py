@@ -44,6 +44,20 @@ def convert_mp3_to_wav_ffmpeg_bytes2bytes(input_data: bytes) -> bytes:
         ['ffmpeg'] + args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     return proc.communicate(input=input_data)[0]
 
+
+def save_audio(url):
+    yt = YouTube(url)
+    try:
+        video = yt.streams.filter(only_audio=True).first()
+        out_file = video.download()
+    except:
+        return None, None, None
+    base, ext = os.path.splitext(out_file)
+    file_name = base + '.mp3'
+    os.rename(out_file, file_name)
+    print(yt.title + " has been successfully downloaded.")
+    print(file_name)
+    return yt.title, file_name, yt.thumbnail_url
 ### Main app
 
 textinput = st.text_input("Please enter your keywords to find the desired video here", "")
@@ -56,28 +70,25 @@ if len(textinput) > 0 :
   st.write("Is that the video you wanted ?")
   st.video(url_total_vid)
   if st.button("Yes"):
-    yt = pytube.YouTube(url_total_vid)
-    audio_stream = yt.streams.filter(only_audio=True).first()
-    buffer=BytesIO()
-    st.write(buffer.getbuffer().nbytes)
-    audio_stream.stream_to_buffer(buffer)
-    buffer.seek(0)
-    st.write(buffer.getbuffer().nbytes)
-    decoded_audio = decode(buffer, output_format=SampleFormat.SIGNED32)
+      video_title, save_location, video_thumbnail = save_audio(video_url)
+      st.audio(save_location)
+      st.write(video_title)
+    # yt = pytube.YouTube(url_total_vid)
+    # audio_stream = yt.streams.filter(only_audio=True).first()
+    # buffer=BytesIO()
+    # st.write(buffer.getbuffer().nbytes)
+    # audio_stream.stream_to_buffer(buffer)
+    # buffer.seek(0)
+    # st.write(buffer.getbuffer().nbytes)
+    # decoded_audio = decode(buffer, output_format=SampleFormat.SIGNED32)
+    # decoded_audio = torch.FloatTensor(decoded_audio.samples)
+    # decoded_audio /= (1 << 31)
+    # st.write(decoded_audio.max())
+    # st.write(decoded_audio.min())
+    # st.write(decoded_audio.shape)
+    # st.write(decoded_audio.dtype)
+    #st.pyplot(plt.plot(decoded_audio.numpy(), linewidth=1))
 
-    # create tensor out of the audio samples
-    decoded_audio = torch.FloatTensor(decoded_audio.samples)
-    
-    # normalize 32 integer bit audio by dividing by 2147483648 (or short hand 1 << 31)
-    decoded_audio /= (1 << 31)
-    
-    st.write(decoded_audio.max())
-    st.write(decoded_audio.min())
-    st.write(decoded_audio.shape)
-    st.write(decoded_audio.dtype)
-    
-    # plot to visually verify
-    st.pyplot(plt.plot(decoded_audio.numpy(), linewidth=1))
     # wav_file = convert_mp4_to_wav_ffmpeg_bytes2bytes(buffer)
     # st.write("All good !")
     
