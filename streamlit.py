@@ -73,6 +73,7 @@ if len(textinput) > 0 :
       video_title, save_location, video_thumbnail = save_audio(url_total_vid)
       st.audio(save_location)
       st.write(video_title)
+      st.write(save_location)
     # yt = pytube.YouTube(url_total_vid)
     # audio_stream = yt.streams.filter(only_audio=True).first()
     # buffer=BytesIO()
