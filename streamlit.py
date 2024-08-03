@@ -65,6 +65,9 @@ def save_audio(url):
 with tab1 : 
     st.write("Fun way to understand how signal audio works")
     st.write("Using trigonometry, you can create audio signal")
+    alpha = st.slider("Pick your α (Decay value)", 0, 1, 0.01)
+    M = st.number_input("Input a value for M (nb of sample)")
+    
 with tab2 :
     textinput = st.text_input("Please enter your keywords to find the desired video here", "")
     if len(textinput) > 0 :
