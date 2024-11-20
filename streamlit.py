@@ -127,7 +127,7 @@ with tabTest :
         st.write("Visualiser le tracking")
         if st.button("Voir le tracking") :
             start_time = st.slider("Date et Heure", value=df.Timestamp.min())
-            df_filtered = df.loc[df.Timestamp == start_time)
+            df_filtered = df.loc[df.Timestamp == start_time]
             st.map(df_filtered, latitude="Latitude", longitude="Longitude", color="Truck ID")
 
     # yt = pytube.YouTube(url_total_vid)
