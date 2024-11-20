@@ -99,7 +99,7 @@ with tabTest :
     end_date = datetime(2024, 11, 20)
     num_points = st.number_input("Nombre de point par camion") # Number of data points per truck
 
-    if num_trucks != 0 and num_points =! 0 :
+    if num_trucks != 0 and num_points != 0 :
         # Generate random data
         data = []
         for truck_id in range(1, num_trucks + 1):
