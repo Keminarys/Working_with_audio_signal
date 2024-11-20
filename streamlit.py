@@ -104,7 +104,7 @@ with tabTest :
     nb_min = int(nb_min)
     interval = timedelta(minutes=nb_min)
     hours_per_day = 12
-    print(type(start_date), start_date)
+    st.write(type(start_date), start_date)
     # if num_trucks != 0 and num_points != 0 :
     #     # Generate random data
     #     data = []
