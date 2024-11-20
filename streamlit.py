@@ -131,9 +131,7 @@ with tabTest :
         st.divider()
         st.write("Visualiser le tracking")
         list_date = df["Timestamp"].astype(str).unique().tolist()
-        st.write(list_date)
-        st.write([type(x) for x in list_date])
-        start_time = st.slider("Date et heure", value=datetime(2020, 1, 1, 9, 30),format="DD/MM/YY - hh:mm:ss")
+        start_time = st.slider("Date et heure", value=list_date[0][0],format="DD/MM/YY - hh:mm:ss")
         df_filtered = df.loc[df["Timestamp"] == start_time]
         st.map(df_filtered, latitude="Latitude", longitude="Longitude", color="Truck ID")
         if st.button("Effacer et Générer de nouvelle données"):
