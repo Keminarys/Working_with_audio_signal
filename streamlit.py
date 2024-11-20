@@ -38,6 +38,24 @@ st.divider()
 tab1, tab2, tabTest = st.tabs(["Create your own soundwave", "Look for sound on YouTube", "POC Maggio"])
 
 ### Function
+@st.cache_data
+def generated_random_data(start_date, end_date, num_trucks, radius, base_location,interval)
+        data = []
+        for truck_id in range(1, num_trucks + 1):
+            current_time = start_date
+            while current_time <= end_date:
+                for hour in range(7, 19):  # From 7 AM to 7 PM
+                    time_point = current_time.replace(hour=hour, minute=0, second=0, microsecond=0)
+                    for _ in range(0, 60, 15):  # Every 15 minutes
+                        lat = base_location[0] + random.uniform(-radius, radius)
+                        lon = base_location[1] + random.uniform(-radius, radius)
+                        data.append([truck_id, time_point, lat, lon])
+                        time_point += interval
+                current_time += timedelta(days=1)
+        df = pd.DataFrame(data, columns=['Truck ID', 'Timestamp', 'Latitude', 'Longitude'])
+        return df
+
+################################################""
 def convert_mp3_to_wav_ffmpeg_bytes2bytes(input_data: bytes) -> bytes:
     args = (ffmpeg
             .input('pipe:', format='mp3')
@@ -100,36 +118,23 @@ with tabTest :
     start_date = datetime.combine(start_date, datetime.min.time())
     end_date = st.date_input("Date de fin", datetime(2024, 11, 20))
     end_date = datetime.combine(end_date, datetime.min.time())
-    num_points = st.number_input("Nombre de point par camion", step=1) # Number of data points per truck
-    num_points = int(num_points)
     nb_min = st.number_input("Intervalle en minute", step=1)
     nb_min = int(nb_min)
     interval = timedelta(minutes=nb_min)
-    hours_per_day = 12
-    if num_trucks != 0 and num_points != 0 :
-        # Generate random data
-        data = []
-        for truck_id in range(1, num_trucks + 1):
-            current_time = start_date
-            while current_time <= end_date:
-                for hour in range(7, 19):  # From 7 AM to 7 PM
-                    time_point = current_time.replace(hour=hour, minute=0, second=0, microsecond=0)
-                    for _ in range(0, 60, 15):  # Every 15 minutes
-                        lat = base_location[0] + random.uniform(-radius, radius)
-                        lon = base_location[1] + random.uniform(-radius, radius)
-                        data.append([truck_id, time_point, lat, lon])
-                        time_point += interval
-                current_time += timedelta(days=1)
-        
+    
+    if num_trucks != 0 and num_points != 0 :        
         st.write(f'Génération de données pour {num_trucks} camions')
 
-        df = pd.DataFrame(data, columns=['Truck ID', 'Timestamp', 'Latitude', 'Longitude'])
+        df = generated_random_data(start_date, end_date, num_trucks, radius, base_location,interval)
         st.dataframe(df)
         st.divider()
         st.write("Visualiser le tracking")
         start_time = st.slider("Date et Heure", value=start_date)
         df_filtered = df.loc[df["Timestamp"] == start_time]
         st.map(df_filtered, latitude="Latitude", longitude="Longitude", color="Truck ID")
+
+        if st.button("Effacer et Générer de nouvelle données"):
+        st.cache_data.clear()
 
     # yt = pytube.YouTube(url_total_vid)
     # audio_stream = yt.streams.filter(only_audio=True).first()
