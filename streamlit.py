@@ -96,8 +96,8 @@ with tabTest :
     num_trucks = int(num_trucks)
     base_location = (43.4368, 5.2156)  # Coordinates for Aéroport Marseille Provence
     radius = 200 / 111  # Approx. radius in degrees (1 degree ≈ 111 km)
-    start_date = datetime(2024, 11, 15)
-    end_date = datetime(2024, 11, 20)
+    start_date = st.date_input("Date de début", datetime.date(2024, 11, 15))
+    end_date = st.date_input("Date de fin", datetime.date(2024, 11, 20))
     num_points = st.number_input("Nombre de point par camion", step=1) # Number of data points per truck
     num_points = int(num_points)
     nb_min = st.number_input("Intervalle en minute", step=1)
@@ -126,9 +126,8 @@ with tabTest :
         st.dataframe(df)
         st.divider()
         st.write("Visualiser le tracking")
-        minimum_date = df["Timestamp"].min()
-        start_time = st.slider("Date et Heure", value=minimum_date)
-        df_filtered = df.loc[df.Timestamp == start_time]
+        start_time = st.slider("Date et Heure", value=start_date)
+        df_filtered = df.loc[df["Timestamp"] == start_time]
         st.map(df_filtered, latitude="Latitude", longitude="Longitude", color="Truck ID")
 
     # yt = pytube.YouTube(url_total_vid)
