@@ -130,7 +130,7 @@ with tabTest :
         st.dataframe(df)
         st.divider()
         st.write("Visualiser le tracking")
-        st.map(df, latitude="Latitude", longitude="Longitude", color="Truck ID")
+        st.map(df, latitude="Latitude", longitude="Longitude")
         if st.button("Effacer et Générer de nouvelle données"):
                 st.cache_data.clear()
 
