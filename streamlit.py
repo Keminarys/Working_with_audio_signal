@@ -119,10 +119,11 @@ with tabTest :
                         data.append([truck_id, time_point, lat, lon])
                         time_point += interval
                 current_time += timedelta(days=1)
+        
         st.write(f'Génération de données pour {num_trucks} camions')
-        if st.button("Générer des data au hasard"):
-            df = pd.DataFrame(data, columns=['Truck ID', 'Timestamp', 'Latitude', 'Longitude'])
-            st.dataframe(df)
+
+        df = pd.DataFrame(data, columns=['Truck ID', 'Timestamp', 'Latitude', 'Longitude'])
+        st.dataframe(df)
         st.divider()
         st.write("Visualiser le tracking")
         if st.button("Voir le tracking") :
