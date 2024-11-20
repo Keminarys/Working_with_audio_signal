@@ -3,6 +3,9 @@
 import pandas as pd
 import numpy as np
 
+import random
+from datetime import datetime, timedelta
+
 from io import BytesIO
 import subprocess
 
@@ -32,7 +35,7 @@ st.write('With this little app, I wanted to dive into signal audio processing.')
 st.write('Depends on your needs, you can either create a sound from scratch using trigonometry or search for a sound on youtube.')
 st.divider()
 
-tab1, tab2 = st.tabs(["Create your own soundwave", "Look for sound on YouTube"])
+tab1, tab2, tabTest = st.tabs(["Create your own soundwave", "Look for sound on YouTube", "POC Maggio"])
 
 ### Function
 def convert_mp3_to_wav_ffmpeg_bytes2bytes(input_data: bytes) -> bytes:
@@ -85,6 +88,33 @@ with tab2 :
           st.write(f'y: {y[:10]}')
           st.write(f'shape y: {y.shape}')
           st.write(f'sr: {sr}')
+
+with tabTest : 
+    
+
+# Initialize parameters
+    num_trucks = st.number_input("Nombre de camion")
+    base_location = (43.4368, 5.2156)  # Coordinates for Aéroport Marseille Provence
+    radius = 200 / 111  # Approx. radius in degrees (1 degree ≈ 111 km)
+    start_date = datetime(2024, 11, 15)
+    end_date = datetime(2024, 11, 20)
+    num_points = st.number_input("Nombre de point par camion") # Number of data points per truck
+    
+    # Generate random data
+    data = []
+    for truck_id in range(1, num_trucks + 1):
+        timestamps = pd.date_range(start=start_date, end=end_date, periods=num_points)
+        for timestamp in timestamps:
+            lat = base_location[0] + random.uniform(-radius, radius)
+            lon = base_location[1] + random.uniform(-radius, radius)
+            data.append([truck_id, timestamp, lat, lon])
+    
+    df = pd.DataFrame(data, columns=['Truck ID', 'Timestamp', 'Latitude', 'Longitude'])
+    
+    st.write("génération de données pour 3 camions hypothétiques")
+    st.dataframe(df)
+
+
     # yt = pytube.YouTube(url_total_vid)
     # audio_stream = yt.streams.filter(only_audio=True).first()
     # buffer=BytesIO()
