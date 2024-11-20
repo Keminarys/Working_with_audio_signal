@@ -39,7 +39,7 @@ tab1, tab2, tabTest = st.tabs(["Create your own soundwave", "Look for sound on Y
 
 ### Function
 @st.cache_data
-def generated_random_data(start_date, end_date, num_trucks, radius, base_location,interval)
+def generated_random_data(start_date, end_date, num_trucks, radius, base_location,interval):
         data = []
         for truck_id in range(1, num_trucks + 1):
             current_time = start_date
