@@ -122,14 +122,16 @@ with tabTest :
     nb_min = int(nb_min)
     interval = timedelta(minutes=nb_min)
     
-    if num_trucks != 0 :        
+    if num_trucks != 0 :    
+            
         st.write(f'Génération de données pour {num_trucks} camions')
 
         df = generated_random_data(start_date, end_date, num_trucks, radius, base_location,interval)
         st.dataframe(df)
         st.divider()
         st.write("Visualiser le tracking")
-        start_time = st.slider("Date et Heure", value=start_date)
+        list_date = df["Timestamp"].astype(str).unique().tolist()
+        start_time = = st.slider('Selectionner une date et une heure', min_value=list_date[0], max_value=list_date[-1])
         df_filtered = df.loc[df["Timestamp"] == start_time]
         st.map(df_filtered, latitude="Latitude", longitude="Longitude", color="Truck ID")
         if st.button("Effacer et Générer de nouvelle données"):
