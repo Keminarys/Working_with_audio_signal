@@ -105,30 +105,30 @@ with tabTest :
     interval = timedelta(minutes=nb_min)
     hours_per_day = 12
     print(type(start_date), start_date)
-    if num_trucks != 0 and num_points != 0 :
-        # Generate random data
-        data = []
-        for truck_id in range(1, num_trucks + 1):
-            current_time = start_date
-            while current_time <= end_date:
-                for hour in range(7, 19):  # From 7 AM to 7 PM
-                    time_point = current_time.replace(hour=hour, minute=0, second=0, microsecond=0)
-                    for _ in range(0, 60, 15):  # Every 15 minutes
-                        lat = base_location[0] + random.uniform(-radius, radius)
-                        lon = base_location[1] + random.uniform(-radius, radius)
-                        data.append([truck_id, time_point, lat, lon])
-                        time_point += interval
-                current_time += timedelta(days=1)
+    # if num_trucks != 0 and num_points != 0 :
+    #     # Generate random data
+    #     data = []
+    #     for truck_id in range(1, num_trucks + 1):
+    #         current_time = start_date
+    #         while current_time <= end_date:
+    #             for hour in range(7, 19):  # From 7 AM to 7 PM
+    #                 time_point = current_time.replace(hour=hour, minute=0, second=0, microsecond=0)
+    #                 for _ in range(0, 60, 15):  # Every 15 minutes
+    #                     lat = base_location[0] + random.uniform(-radius, radius)
+    #                     lon = base_location[1] + random.uniform(-radius, radius)
+    #                     data.append([truck_id, time_point, lat, lon])
+    #                     time_point += interval
+    #             current_time += timedelta(days=1)
         
-        st.write(f'Génération de données pour {num_trucks} camions')
+    #     st.write(f'Génération de données pour {num_trucks} camions')
 
-        df = pd.DataFrame(data, columns=['Truck ID', 'Timestamp', 'Latitude', 'Longitude'])
-        st.dataframe(df)
-        st.divider()
-        st.write("Visualiser le tracking")
-        start_time = st.slider("Date et Heure", value=start_date)
-        df_filtered = df.loc[df["Timestamp"] == start_time]
-        st.map(df_filtered, latitude="Latitude", longitude="Longitude", color="Truck ID")
+    #     df = pd.DataFrame(data, columns=['Truck ID', 'Timestamp', 'Latitude', 'Longitude'])
+    #     st.dataframe(df)
+    #     st.divider()
+    #     st.write("Visualiser le tracking")
+    #     start_time = st.slider("Date et Heure", value=start_date)
+    #     df_filtered = df.loc[df["Timestamp"] == start_time]
+    #     st.map(df_filtered, latitude="Latitude", longitude="Longitude", color="Truck ID")
 
     # yt = pytube.YouTube(url_total_vid)
     # audio_stream = yt.streams.filter(only_audio=True).first()
