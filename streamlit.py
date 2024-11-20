@@ -127,10 +127,9 @@ with tabTest :
         st.divider()
         st.write("Visualiser le tracking")
         minimum_date = df["Timestamp"].min()
-        st.write(minimum_date)
-            # start_time = st.slider("Date et Heure", value=)
-            # df_filtered = df.loc[df.Timestamp == start_time]
-            # st.map(df_filtered, latitude="Latitude", longitude="Longitude", color="Truck ID")
+        start_time = st.slider("Date et Heure", value=minimum_date)
+        df_filtered = df.loc[df.Timestamp == start_time]
+        st.map(df_filtered, latitude="Latitude", longitude="Longitude", color="Truck ID")
 
     # yt = pytube.YouTube(url_total_vid)
     # audio_stream = yt.streams.filter(only_audio=True).first()
