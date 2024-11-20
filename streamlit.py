@@ -97,7 +97,9 @@ with tabTest :
     base_location = (43.4368, 5.2156)  # Coordinates for Aéroport Marseille Provence
     radius = 200 / 111  # Approx. radius in degrees (1 degree ≈ 111 km)
     start_date = st.date_input("Date de début", datetime(2024, 11, 15))
+    start_date = datetime.combine(start_date, datetime.min.time())
     end_date = st.date_input("Date de fin", datetime(2024, 11, 20))
+    end_date = datetime.combine(end_date, datetime.min.time())
     num_points = st.number_input("Nombre de point par camion", step=1) # Number of data points per truck
     num_points = int(num_points)
     nb_min = st.number_input("Intervalle en minute", step=1)
