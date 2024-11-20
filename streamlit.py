@@ -122,7 +122,7 @@ with tabTest :
     nb_min = int(nb_min)
     interval = timedelta(minutes=nb_min)
     
-    if num_trucks != 0 and num_points != 0 :        
+    if num_trucks != 0 :        
         st.write(f'Génération de données pour {num_trucks} camions')
 
         df = generated_random_data(start_date, end_date, num_trucks, radius, base_location,interval)
