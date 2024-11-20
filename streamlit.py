@@ -126,9 +126,8 @@ with tabTest :
         st.dataframe(df)
         st.divider()
         st.write("Visualiser le tracking")
-        if st.button("Voir le tracking") :
-            minimum_date = df["Timestamp"].min()
-            print(minimum_date)
+        minimum_date = df["Timestamp"].min()
+        st.write(minimum_date)
             # start_time = st.slider("Date et Heure", value=)
             # df_filtered = df.loc[df.Timestamp == start_time]
             # st.map(df_filtered, latitude="Latitude", longitude="Longitude", color="Truck ID")
