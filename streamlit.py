@@ -92,13 +92,14 @@ with tab2 :
 with tabTest : 
 
     st.write("Merci de choisir le nombre de camion et le nombre de point à générer")
-    num_trucks = st.number_input("Nombre de camion")
+    num_trucks = st.number_input("Nombre de camion", step=1)
+    num_trucks = int(num_trucks)
     base_location = (43.4368, 5.2156)  # Coordinates for Aéroport Marseille Provence
     radius = 200 / 111  # Approx. radius in degrees (1 degree ≈ 111 km)
     start_date = datetime(2024, 11, 15)
     end_date = datetime(2024, 11, 20)
-    num_points = st.number_input("Nombre de point par camion") # Number of data points per truck
-
+    num_points = st.number_input("Nombre de point par camion", step=1) # Number of data points per truck
+    num_points = int(num_points)
     if num_trucks != 0 and num_points != 0 :
         # Generate random data
         data = []
