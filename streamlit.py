@@ -35,7 +35,7 @@ st.write('With this little app, I wanted to dive into signal audio processing.')
 st.write('Depends on your needs, you can either create a sound from scratch using trigonometry or search for a sound on youtube.')
 st.divider()
 
-tab1, tab2, tabTest = st.tabs(["Create your own soundwave", "Look for sound on YouTube", "POC Maggio"])
+tab1, tab2 = st.tabs(["Create your own soundwave", "Look for sound on YouTube"])
 
 ### Function
 @st.cache_data
@@ -107,32 +107,6 @@ with tab2 :
           st.write(f'shape y: {y.shape}')
           st.write(f'sr: {sr}')
 
-with tabTest : 
-
-    st.write("Merci de choisir le nombre de camion et le nombre de point à générer")
-    num_trucks = st.number_input("Nombre de camion", step=1)
-    num_trucks = int(num_trucks)
-    base_location = (43.4368, 5.2156)  # Coordinates for Aéroport Marseille Provence
-    radius = 200 / 111  # Approx. radius in degrees (1 degree ≈ 111 km)
-    start_date = st.date_input("Date de début", datetime(2024, 11, 15))
-    start_date = datetime.combine(start_date, datetime.min.time())
-    end_date = st.date_input("Date de fin", datetime(2024, 11, 20))
-    end_date = datetime.combine(end_date, datetime.min.time())
-    nb_min = st.number_input("Intervalle en minute", step=1)
-    nb_min = int(nb_min)
-    interval = timedelta(minutes=nb_min)
-    
-    if num_trucks != 0 :    
-            
-        st.write(f'Génération de données pour {num_trucks} camions')
-
-        df = generated_random_data(start_date, end_date, num_trucks, radius, base_location,interval)
-        st.dataframe(df)
-        st.divider()
-        st.write("Visualiser le tracking")
-        st.map(df, latitude="Latitude", longitude="Longitude")
-        if st.button("Effacer et Générer de nouvelle données"):
-                st.cache_data.clear()
 
     # yt = pytube.YouTube(url_total_vid)
     # audio_stream = yt.streams.filter(only_audio=True).first()
